@@ -1,0 +1,101 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model AdminUser {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  name         String
+  passwordHash String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model SiteContent {
+  id                   String   @id @default(cuid())
+  brandName            String
+  heroEyebrow          String
+  heroTitle            String
+  heroSubtitle         String
+  heroDescription      String
+  announcement         String
+  primaryCtaLabel      String
+  primaryCtaHref       String
+  secondaryCtaLabel    String
+  secondaryCtaHref     String
+  experienceTitle      String
+  experienceDescription String
+  storyTitle           String
+  storyBody            String
+  contactPhone         String
+  whatsappNumber       String
+  instagramHandle      String
+  addressLine          String
+  serviceHours         String
+  deliveryZones        String
+  updatedAt            DateTime @updatedAt
+  createdAt            DateTime @default(now())
+}
+
+model Highlight {
+  id          String   @id @default(cuid())
+  kicker      String
+  title       String
+  description String
+  ctaLabel    String?
+  ctaHref     String?
+  tone        String   @default("cream")
+  sortOrder   Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Flavor {
+  id          String   @id @default(cuid())
+  category    String
+  name        String
+  description String
+  price       String
+  badge       String?
+  accentColor String   @default("#ff6f61")
+  featured    Boolean  @default(false)
+  intensity   Int      @default(3)
+  sortOrder   Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Testimonial {
+  id        String   @id @default(cuid())
+  author    String
+  role      String
+  quote     String
+  rating    Int      @default(5)
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Lead {
+  id             String     @id @default(cuid())
+  name           String
+  phone          String
+  favoriteFlavor String?
+  eventType      String?
+  message        String
+  status         LeadStatus @default(NEW)
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @updatedAt
+}
+
+enum LeadStatus {
+  NEW
+  CONTACTED
+  BOOKED
+  ARCHIVED
+}

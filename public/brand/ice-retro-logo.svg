@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 520" role="img" aria-label="Logo Ice Retro">
+  <defs>
+    <linearGradient id="swirl" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7e22ce" />
+      <stop offset="55%" stop-color="#d946ef" />
+      <stop offset="100%" stop-color="#ff2d7b" />
+    </linearGradient>
+    <linearGradient id="cone" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f5bf69" />
+      <stop offset="100%" stop-color="#b97a34" />
+    </linearGradient>
+    <linearGradient id="wordmark" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ff92ef" />
+      <stop offset="100%" stop-color="#d400ff" />
+    </linearGradient>
+  </defs>
+
+  <circle cx="238" cy="216" r="144" fill="#94ff2e" />
+
+  <g transform="translate(196 84) rotate(16 78 166)">
+    <path d="M82 322 20 164c-5-12 3-24 16-24h92c13 0 21 12 16 24L82 322Z" fill="url(#cone)" stroke="#6b4b22" stroke-width="7" />
+    <path d="M40 182h86M32 210h101M24 240h114M52 150l61 154M28 168l78 150" stroke="#d59d4d" stroke-width="6" stroke-linecap="round" opacity=".72" />
+
+    <path d="M34 133C14 121 0 101 0 77 0 39 31 6 71 6c29 0 53 16 65 40 7-4 16-6 25-6 35 0 64 25 64 56 0 20-12 38-31 48 12 8 20 20 20 35 0 26-26 46-59 46H69c-38 0-69-20-69-46 0-22 14-36 34-46Z" fill="url(#swirl)" stroke="#1f0d77" stroke-width="9" />
+    <path d="M50 38c20 10 39 25 52 44" stroke="#ff8bf6" stroke-width="10" stroke-linecap="round" opacity=".64" />
+    <path d="M34 99c38 8 92 9 140-4" stroke="#ff8bf6" stroke-width="13" stroke-linecap="round" opacity=".45" />
+    <path d="M22 160c48 9 116 10 166-6" stroke="#ff8bf6" stroke-width="13" stroke-linecap="round" opacity=".38" />
+  </g>
+
+  <g>
+    <text
+      x="92"
+      y="330"
+      transform="rotate(-14 92 330)"
+      fill="#8a2be2"
+      font-family="Arial, Helvetica, sans-serif"
+      font-size="36"
+      font-weight="900"
+      letter-spacing="2"
+    >
+      SORVETES
+    </text>
+
+    <text
+      x="18"
+      y="404"
+      fill="url(#wordmark)"
+      stroke="#ffffff"
+      stroke-width="18"
+      paint-order="stroke"
+      font-family="'Brush Script MT', 'Segoe Script', cursive"
+      font-size="168"
+      font-weight="700"
+    >
+      Ice Retro
+    </text>
+  </g>
+</svg>

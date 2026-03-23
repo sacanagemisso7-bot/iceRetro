@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 768 1024" role="img" aria-label="Casquinha lilás em campo florido">
+  <defs>
+    <linearGradient id="skyLav2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#c0c8ff" />
+      <stop offset="48%" stop-color="#f4c0e6" />
+      <stop offset="100%" stop-color="#ffd6a2" />
+    </linearGradient>
+    <linearGradient id="iceLav2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f5d4ff" />
+      <stop offset="100%" stop-color="#cd8dff" />
+    </linearGradient>
+    <linearGradient id="coneLav2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#d4a15f" />
+      <stop offset="100%" stop-color="#9d6732" />
+    </linearGradient>
+  </defs>
+
+  <rect width="768" height="1024" fill="url(#skyLav2)" />
+  <rect y="634" width="768" height="390" fill="#a678c2" />
+  <g opacity=".85">
+    <circle cx="96" cy="146" r="7" fill="#fff0bf" />
+    <circle cx="170" cy="130" r="7" fill="#fff0bf" />
+    <circle cx="246" cy="146" r="7" fill="#fff0bf" />
+    <circle cx="320" cy="164" r="7" fill="#fff0bf" />
+    <circle cx="518" cy="164" r="7" fill="#fff0bf" />
+    <circle cx="594" cy="144" r="7" fill="#fff0bf" />
+    <circle cx="670" cy="160" r="7" fill="#fff0bf" />
+    <path d="M66 154c118-82 252-82 386 0M422 168c82-58 166-58 280 0" stroke="#fff3bf" stroke-width="4" fill="none" opacity=".72" />
+  </g>
+  <g opacity=".72">
+    <path d="M0 836c135-90 270-90 404 0 134-90 256-90 364 0v188H0Z" fill="#8f62b8" />
+    <path d="M0 886c122-74 242-74 358 0 126-74 262-74 410 0v138H0Z" fill="#7d51a8" />
+  </g>
+  <g opacity=".78">
+    <path d="M18 760c12-42 40-67 74-54 31 12 44 47 31 94-39-6-72-20-105-40Z" fill="#c68dff" />
+    <path d="M108 760c10-35 34-59 62-50 29 9 43 44 36 88-36-5-68-17-98-38Z" fill="#b875ff" />
+    <path d="M206 760c12-42 40-67 74-54 31 12 44 47 31 94-39-6-72-20-105-40Z" fill="#c68dff" />
+    <path d="M296 760c10-35 34-59 62-50 29 9 43 44 36 88-36-5-68-17-98-38Z" fill="#b875ff" />
+    <path d="M430 760c12-42 40-67 74-54 31 12 44 47 31 94-39-6-72-20-105-40Z" fill="#c68dff" />
+    <path d="M520 760c10-35 34-59 62-50 29 9 43 44 36 88-36-5-68-17-98-38Z" fill="#b875ff" />
+    <path d="M618 760c12-42 40-67 74-54 31 12 44 47 31 94-39-6-72-20-105-40Z" fill="#c68dff" />
+  </g>
+
+  <g transform="translate(234 184)">
+    <rect x="54" y="286" width="118" height="12" rx="6" fill="#8f79ff" transform="rotate(-24 54 286)" />
+    <path d="M182 548 116 292c-5-16 6-31 22-31h92c16 0 27 15 22 31l-66 256Z" fill="url(#coneLav2)" stroke="#8b5b29" stroke-width="6" />
+    <path d="M136 316h98M130 354h111M124 392h124M151 270l70 258M128 290l93 257" stroke="#e7b96f" stroke-width="6" stroke-linecap="round" opacity=".7" />
+    <path d="M143 260c-20-9-33-25-33-45 0-23 18-43 46-52 4-22 29-39 58-39 27 0 50 13 60 33 35 3 63 25 63 53 0 19-13 36-35 46 8 7 13 17 13 28 0 27-27 48-60 48H175c-40 0-72-19-72-45 0-18 16-35 40-44Z" fill="url(#iceLav2)" stroke="#dda9ff" stroke-width="7" />
+    <path d="M166 145c22 6 41 18 56 36" stroke="#fbe7ff" stroke-width="9" stroke-linecap="round" opacity=".72" />
+    <path d="M149 194c43 7 101 8 157-4" stroke="#f6ddff" stroke-width="10" stroke-linecap="round" opacity=".56" />
+    <path d="M137 246c52 8 124 9 181-6" stroke="#f1d1ff" stroke-width="10" stroke-linecap="round" opacity=".46" />
+    <path d="M124 602c29 15 61 21 98 21" stroke="#f0deec" stroke-width="18" stroke-linecap="round" opacity=".95" />
+  </g>
+</svg>
