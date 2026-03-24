@@ -58,7 +58,7 @@ export default async function HomePage() {
   const instagramHref = normalizeInstagram(site.instagramHandle);
   const today = new Date().getDay() as keyof typeof agenda;
   const localAtual = agenda[today];
-  const mapQuery = `${localAtual.local} ${localAtual.cidade}`;
+  const mapQuery = "-25.079928, -50.128051";
   const mapaSrc = `https://www.google.com/maps?q=${encodeURIComponent(mapQuery)}&output=embed`;
   const mapaHref = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(mapQuery)}`;
   const marqueeText = `${marqueeItems.join(" \u2726 ")} \u2726 `;
