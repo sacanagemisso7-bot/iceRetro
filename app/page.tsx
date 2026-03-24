@@ -30,7 +30,7 @@ function normalizeWhatsApp(value: string) {
 
 function normalizeInstagram(value: string) {
   const handle = value.replace(/^@/, "").trim();
-  return `https://instagram.com/sorvetesiceretro/`;
+  return "https://www.instagram.com/sorvetesiceretro/";
 }
 
 function flavorEmoji(name: string) {
