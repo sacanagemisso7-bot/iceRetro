@@ -24,7 +24,7 @@ const marqueeItems = [
 ];
 
 function normalizeWhatsApp(value: string) {
-  const digits = value.replace(/\D/g, "");
+  const digits = "5542998056264";
   return `https://wa.me/${digits}`;
 }
 
