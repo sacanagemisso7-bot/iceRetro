@@ -6,6 +6,9 @@ import {
   testimonialSeeds
 } from "@/lib/default-data";
 import { hashPassword } from "@/lib/passwords";
+import { hasUsableDatabase } from "@/lib/runtime-db";
+
+const fallbackDate = new Date("2026-01-01T00:00:00.000Z");
 
 async function ensureBaseData() {
   const [site, admin, flavorCount, highlightCount, testimonialCount] = await Promise.all([
@@ -55,57 +58,126 @@ async function ensureBaseData() {
   }
 }
 
+function createFallbackSnapshot() {
+  return {
+    site: {
+      id: "seed-site",
+      ...siteContentSeed,
+      createdAt: fallbackDate,
+      updatedAt: fallbackDate
+    },
+    highlights: highlightSeeds.map((item, index) => ({
+      id: `seed-highlight-${index + 1}`,
+      ...item,
+      ctaLabel: item.ctaLabel || null,
+      ctaHref: item.ctaHref || null,
+      createdAt: fallbackDate,
+      updatedAt: fallbackDate
+    })),
+    flavors: flavorSeeds.map((item, index) => ({
+      id: `seed-flavor-${index + 1}`,
+      ...item,
+      badge: item.badge || null,
+      createdAt: fallbackDate,
+      updatedAt: fallbackDate
+    })),
+    testimonials: testimonialSeeds.map((item, index) => ({
+      id: `seed-testimonial-${index + 1}`,
+      ...item,
+      createdAt: fallbackDate,
+      updatedAt: fallbackDate
+    })),
+    leads: []
+  };
+}
+
+function logCmsFallback(scope: string, error: unknown) {
+  console.error(`[cms:${scope}] Falling back to seed content`, error);
+}
+
 export async function getSiteSnapshot() {
-  await ensureBaseData();
+  if (!hasUsableDatabase()) {
+    logCmsFallback("site", "Database disabled for this runtime");
+    const fallback = createFallbackSnapshot();
+    return {
+      site: fallback.site,
+      highlights: fallback.highlights,
+      flavors: fallback.flavors,
+      testimonials: fallback.testimonials
+    };
+  }
 
-  const [site, highlights, flavors, testimonials] = await Promise.all([
-    prisma.siteContent.findFirstOrThrow(),
-    prisma.highlight.findMany({
-      orderBy: {
-        sortOrder: "asc"
-      }
-    }),
-    prisma.flavor.findMany({
-      orderBy: {
-        sortOrder: "asc"
-      }
-    }),
-    prisma.testimonial.findMany({
-      orderBy: {
-        sortOrder: "asc"
-      }
-    })
-  ]);
+  try {
+    await ensureBaseData();
 
-  return { site, highlights, flavors, testimonials };
+    const [site, highlights, flavors, testimonials] = await Promise.all([
+      prisma.siteContent.findFirstOrThrow(),
+      prisma.highlight.findMany({
+        orderBy: {
+          sortOrder: "asc"
+        }
+      }),
+      prisma.flavor.findMany({
+        orderBy: {
+          sortOrder: "asc"
+        }
+      }),
+      prisma.testimonial.findMany({
+        orderBy: {
+          sortOrder: "asc"
+        }
+      })
+    ]);
+
+    return { site, highlights, flavors, testimonials };
+  } catch (error) {
+    logCmsFallback("site", error);
+    const fallback = createFallbackSnapshot();
+    return {
+      site: fallback.site,
+      highlights: fallback.highlights,
+      flavors: fallback.flavors,
+      testimonials: fallback.testimonials
+    };
+  }
 }
 
 export async function getDashboardSnapshot() {
-  await ensureBaseData();
+  if (!hasUsableDatabase()) {
+    logCmsFallback("dashboard", "Database disabled for this runtime");
+    return createFallbackSnapshot();
+  }
 
-  const [site, highlights, flavors, testimonials, leads] = await Promise.all([
-    prisma.siteContent.findFirstOrThrow(),
-    prisma.highlight.findMany({
-      orderBy: {
-        sortOrder: "asc"
-      }
-    }),
-    prisma.flavor.findMany({
-      orderBy: {
-        sortOrder: "asc"
-      }
-    }),
-    prisma.testimonial.findMany({
-      orderBy: {
-        sortOrder: "asc"
-      }
-    }),
-    prisma.lead.findMany({
-      orderBy: {
-        createdAt: "desc"
-      }
-    })
-  ]);
+  try {
+    await ensureBaseData();
 
-  return { site, highlights, flavors, testimonials, leads };
+    const [site, highlights, flavors, testimonials, leads] = await Promise.all([
+      prisma.siteContent.findFirstOrThrow(),
+      prisma.highlight.findMany({
+        orderBy: {
+          sortOrder: "asc"
+        }
+      }),
+      prisma.flavor.findMany({
+        orderBy: {
+          sortOrder: "asc"
+        }
+      }),
+      prisma.testimonial.findMany({
+        orderBy: {
+          sortOrder: "asc"
+        }
+      }),
+      prisma.lead.findMany({
+        orderBy: {
+          createdAt: "desc"
+        }
+      })
+    ]);
+
+    return { site, highlights, flavors, testimonials, leads };
+  } catch (error) {
+    logCmsFallback("dashboard", error);
+    return createFallbackSnapshot();
+  }
 }

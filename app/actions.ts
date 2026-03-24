@@ -1,6 +1,7 @@
 "use server";
 
 import { prisma } from "@/lib/prisma";
+import { hasUsableDatabase } from "@/lib/runtime-db";
 
 function value(formData: FormData, key: string) {
   return String(formData.get(key) || "").trim();
@@ -45,15 +46,31 @@ export async function submitLeadAction(
     .filter(Boolean)
     .join("\n");
 
-  await prisma.lead.create({
-    data: {
-      name,
-      phone,
-      favoriteFlavor: favoriteFlavor || null,
-      eventType: eventType || null,
-      message: leadMessage
-    }
-  });
+  if (!hasUsableDatabase()) {
+    return {
+      status: "error",
+      message: "O formulario esta em modo demonstracao neste deploy. Chame no WhatsApp para continuar."
+    };
+  }
+
+  try {
+    await prisma.lead.create({
+      data: {
+        name,
+        phone,
+        favoriteFlavor: favoriteFlavor || null,
+        eventType: eventType || null,
+        message: leadMessage
+      }
+    });
+  } catch (error) {
+    console.error("[lead] Failed to persist lead", error);
+
+    return {
+      status: "error",
+      message: "O formulario nao conseguiu salvar no ambiente atual. Chame no WhatsApp para continuar."
+    };
+  }
 
   return {
     status: "success",
