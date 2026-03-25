@@ -2,20 +2,11 @@
 
 import { prisma } from "@/lib/prisma";
 import { hasUsableDatabase } from "@/lib/runtime-db";
+import type { LeadActionState } from "@/app/lead-action-state";
 
 function value(formData: FormData, key: string) {
   return String(formData.get(key) || "").trim();
 }
-
-export type LeadActionState = {
-  status: "idle" | "success" | "error";
-  message: string;
-};
-
-export const initialLeadActionState: LeadActionState = {
-  status: "idle",
-  message: ""
-};
 
 export async function submitLeadAction(
   _previousState: LeadActionState,

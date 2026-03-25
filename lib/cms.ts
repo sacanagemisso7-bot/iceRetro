@@ -5,58 +5,9 @@ import {
   siteContentSeed,
   testimonialSeeds
 } from "@/lib/default-data";
-import { hashPassword } from "@/lib/passwords";
 import { hasUsableDatabase } from "@/lib/runtime-db";
 
 const fallbackDate = new Date("2026-01-01T00:00:00.000Z");
-
-async function ensureBaseData() {
-  const [site, admin, flavorCount, highlightCount, testimonialCount] = await Promise.all([
-    prisma.siteContent.findFirst(),
-    prisma.adminUser.findUnique({
-      where: {
-        email: process.env.ADMIN_EMAIL || "admin@iceretro.com"
-      }
-    }),
-    prisma.flavor.count(),
-    prisma.highlight.count(),
-    prisma.testimonial.count()
-  ]);
-
-  if (!site) {
-    await prisma.siteContent.create({
-      data: siteContentSeed
-    });
-  }
-
-  if (!admin) {
-    await prisma.adminUser.create({
-      data: {
-        email: process.env.ADMIN_EMAIL || "admin@iceretro.com",
-        name: process.env.ADMIN_NAME || "Ice Retro Admin",
-        passwordHash: hashPassword(process.env.ADMIN_PASSWORD || "ice12345")
-      }
-    });
-  }
-
-  if (highlightCount === 0) {
-    await prisma.highlight.createMany({
-      data: highlightSeeds
-    });
-  }
-
-  if (flavorCount === 0) {
-    await prisma.flavor.createMany({
-      data: flavorSeeds
-    });
-  }
-
-  if (testimonialCount === 0) {
-    await prisma.testimonial.createMany({
-      data: testimonialSeeds
-    });
-  }
-}
 
 function createFallbackSnapshot() {
   return {
@@ -95,6 +46,21 @@ function logCmsFallback(scope: string, error: unknown) {
   console.error(`[cms:${scope}] Falling back to seed content`, error);
 }
 
+function dedupeItems<T>(items: T[], key: (item: T) => string) {
+  const seen = new Set<string>();
+
+  return items.filter((item) => {
+    const itemKey = key(item);
+
+    if (seen.has(itemKey)) {
+      return false;
+    }
+
+    seen.add(itemKey);
+    return true;
+  });
+}
+
 export async function getSiteSnapshot() {
   if (!hasUsableDatabase()) {
     logCmsFallback("site", "Database disabled for this runtime");
@@ -108,10 +74,8 @@ export async function getSiteSnapshot() {
   }
 
   try {
-    await ensureBaseData();
-
     const [site, highlights, flavors, testimonials] = await Promise.all([
-      prisma.siteContent.findFirstOrThrow(),
+      prisma.siteContent.findFirst(),
       prisma.highlight.findMany({
         orderBy: {
           sortOrder: "asc"
@@ -129,7 +93,18 @@ export async function getSiteSnapshot() {
       })
     ]);
 
-    return { site, highlights, flavors, testimonials };
+    const fallback = createFallbackSnapshot();
+    const dedupedFlavors = dedupeItems(
+      flavors,
+      (item) => `${item.name.trim().toLowerCase()}|${item.category.trim().toLowerCase()}`
+    );
+
+    return {
+      site: site ?? fallback.site,
+      highlights: highlights.length ? highlights : fallback.highlights,
+      flavors: dedupedFlavors.length ? dedupedFlavors : fallback.flavors,
+      testimonials: testimonials.length ? testimonials : fallback.testimonials
+    };
   } catch (error) {
     logCmsFallback("site", error);
     const fallback = createFallbackSnapshot();
@@ -149,10 +124,8 @@ export async function getDashboardSnapshot() {
   }
 
   try {
-    await ensureBaseData();
-
     const [site, highlights, flavors, testimonials, leads] = await Promise.all([
-      prisma.siteContent.findFirstOrThrow(),
+      prisma.siteContent.findFirst(),
       prisma.highlight.findMany({
         orderBy: {
           sortOrder: "asc"
@@ -175,7 +148,19 @@ export async function getDashboardSnapshot() {
       })
     ]);
 
-    return { site, highlights, flavors, testimonials, leads };
+    const fallback = createFallbackSnapshot();
+    const dedupedFlavors = dedupeItems(
+      flavors,
+      (item) => `${item.name.trim().toLowerCase()}|${item.category.trim().toLowerCase()}`
+    );
+
+    return {
+      site: site ?? fallback.site,
+      highlights: highlights.length ? highlights : fallback.highlights,
+      flavors: dedupedFlavors.length ? dedupedFlavors : fallback.flavors,
+      testimonials: testimonials.length ? testimonials : fallback.testimonials,
+      leads
+    };
   } catch (error) {
     logCmsFallback("dashboard", error);
     return createFallbackSnapshot();

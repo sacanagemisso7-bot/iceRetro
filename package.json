@@ -11,7 +11,7 @@
     "db:seed": "node node_modules/tsx/dist/cli.mjs prisma/seed.ts",
     "prisma:generate": "node node_modules/prisma/build/index.js generate",
     "postinstall": "node node_modules/prisma/build/index.js generate",
-    "vercel-build": "node node_modules/prisma/build/index.js generate && node node_modules/prisma/build/index.js migrate deploy && node node_modules/next/dist/bin/next build"
+    "vercel-build": "node scripts/vercel-build.mjs"
   },
   "dependencies": {
     "@prisma/client": "6.19.0",

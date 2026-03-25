@@ -2,7 +2,8 @@
 
 import { useActionState, useEffect, useRef } from "react";
 import { useFormStatus } from "react-dom";
-import { initialLeadActionState, submitLeadAction } from "@/app/actions";
+import { submitLeadAction } from "@/app/actions";
+import { initialLeadActionState } from "@/app/lead-action-state";
 
 type FlavorOption = {
   id: string;

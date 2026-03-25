@@ -13,6 +13,8 @@ const marqueeItems = [
   "SEM GL\u00daTEN"
 ];
 
+const sundayLocationQuery = "Lago de Olarias, Ponta Grossa - PR";
+
 function normalizeWhatsApp(value: string) {
   const digits = "5542998056264";
   return `https://wa.me/${digits}`;
@@ -23,14 +25,39 @@ function normalizeInstagram(value: string) {
   return "https://www.instagram.com/sorvetesiceretro/";
 }
 
-function resolveLocationQuery(value: string) {
+function isSundayInBrazil() {
+  const weekday = new Intl.DateTimeFormat("en-US", {
+    weekday: "short",
+    timeZone: "America/Sao_Paulo"
+  }).format(new Date());
+
+  return weekday === "Sun";
+}
+
+function resolveLocation(value: string) {
+  if (isSundayInBrazil()) {
+    return {
+      query: sundayLocationQuery,
+      title: sundayLocationQuery,
+      subtitle: "Localizacao automatica de domingo"
+    };
+  }
+
   const trimmed = value.trim();
 
   if (!trimmed || /atendimento online|sob consulta/i.test(trimmed)) {
-    return "-25.079928, -50.128051";
+    return {
+      query: "-25.079928, -50.128051",
+      title: "Ponto configurado no mapa",
+      subtitle: "Localizacao fixada por coordenadas"
+    };
   }
 
-  return trimmed;
+  return {
+    query: trimmed,
+    title: trimmed,
+    subtitle: "Endereco configurado"
+  };
 }
 
 function flavorEmoji(name: string) {
@@ -56,12 +83,9 @@ export default async function HomePage() {
 
   const whatsappHref = normalizeWhatsApp(site.whatsappNumber);
   const instagramHref = normalizeInstagram(site.instagramHandle);
-  const mapQuery = resolveLocationQuery(site.addressLine);
-  const usingPinnedCoordinates = mapQuery === "-25.079928, -50.128051";
-  const mapaSrc = `https://www.google.com/maps?q=${encodeURIComponent(mapQuery)}&output=embed`;
-  const mapaHref = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(mapQuery)}`;
-  const mapDisplayTitle = usingPinnedCoordinates ? "Ponto configurado no mapa" : mapQuery;
-  const mapDisplaySubtitle = usingPinnedCoordinates ? "Localizacao fixada por coordenadas" : "Endereco configurado";
+  const mapLocation = resolveLocation(site.addressLine);
+  const mapaSrc = `https://www.google.com/maps?q=${encodeURIComponent(mapLocation.query)}&output=embed`;
+  const mapaHref = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(mapLocation.query)}`;
   const marqueeText = `${marqueeItems.join(" \u2726 ")} \u2726 `;
   const stylePhotos = [
     {
@@ -207,8 +231,8 @@ export default async function HomePage() {
 
             <div className="location-info">
               <span className="location-badge">Ponto atual Ice Retro</span>
-              <h4 className="location-place">{mapDisplayTitle}</h4>
-              <p className="location-city">{mapDisplaySubtitle}</p>
+              <h4 className="location-place">{mapLocation.title}</h4>
+              <p className="location-city">{mapLocation.subtitle}</p>
 
               <div className="location-meta">
                 <div className="location-meta-card">

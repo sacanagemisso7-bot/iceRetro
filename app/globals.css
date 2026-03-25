@@ -62,6 +62,15 @@ textarea {
   backdrop-filter: blur(12px);
 }
 
+select {
+  color-scheme: dark;
+}
+
+select option {
+  color: var(--white);
+  background: #160a29;
+}
+
 input::placeholder,
 textarea::placeholder {
   color: rgba(255, 255, 255, 0.4);
