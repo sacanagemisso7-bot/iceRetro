@@ -1,5 +1,15 @@
+export function getResolvedDatabaseUrl() {
+  return (
+    process.env.DATABASE_URL?.trim() ||
+    process.env.POSTGRES_PRISMA_URL?.trim() ||
+    process.env.POSTGRES_URL?.trim() ||
+    process.env.POSTGRES_URL_NON_POOLING?.trim() ||
+    ""
+  );
+}
+
 export function hasUsableDatabase() {
-  const databaseUrl = process.env.DATABASE_URL?.trim();
+  const databaseUrl = getResolvedDatabaseUrl();
 
   if (!databaseUrl) {
     return false;
