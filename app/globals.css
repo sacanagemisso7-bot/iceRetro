@@ -114,10 +114,12 @@ textarea {
   align-items: center;
   flex: 0 1 auto;
   min-width: 0;
+  border-radius: 1.1rem;
+  overflow: hidden;
 }
 
 .site-logo-image {
-  width: clamp(10rem, 19vw, 15rem);
+  width: clamp(4.8rem, 8vw, 7rem);
   height: auto;
   max-width: 100%;
   display: block;
@@ -182,7 +184,7 @@ textarea {
   flex-direction: column;
   justify-content: center;
   text-align: center;
-  padding: clamp(7.5rem, 14vw, 9rem) 1.5rem clamp(3.5rem, 8vw, 5rem);
+  padding: clamp(7.5rem, 14vw, 9rem) 1.5rem clamp(6rem, 10vw, 7.5rem);
   background: linear-gradient(135deg, #1a0a2e, #2d1250, #ff2d7b);
   overflow: hidden;
 }
@@ -197,13 +199,13 @@ textarea {
 
 .hero-background-logo {
   position: absolute;
-  top: 37%;
+  top: 33%;
   left: 50%;
   z-index: 0;
-  width: min(100vw, 56rem);
+  width: min(88vw, 38rem);
   max-width: 100%;
   height: auto;
-  opacity: 0.18;
+  opacity: 0.13;
   transform: translate(-50%, -50%);
   filter: blur(0.4px) drop-shadow(0 24px 40px rgba(0, 0, 0, 0.28));
   pointer-events: none;
@@ -292,6 +294,15 @@ textarea {
   overflow: hidden;
   padding: 0.75rem 0;
   background: var(--lime);
+}
+
+.hero-marquee-strip {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+  box-shadow: 0 -8px 28px rgba(0, 0, 0, 0.18);
 }
 
 .marquee-track {
@@ -1413,14 +1424,14 @@ textarea {
   .site-hero {
     min-height: auto;
     padding-top: 4.5rem;
-    padding-bottom: 4rem;
+    padding-bottom: 5.5rem;
   }
 
   .hero-background-logo {
-    width: min(138vw, 35rem);
-    top: 34%;
+    width: min(108vw, 24rem);
+    top: 30%;
     transform: translate(-50%, -50%);
-    opacity: 0.15;
+    opacity: 0.11;
   }
 
   .site-logo-link,

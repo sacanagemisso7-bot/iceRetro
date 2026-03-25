@@ -4,16 +4,6 @@ import { StyleGallery } from "@/components/site/style-gallery";
 
 export const dynamic = "force-dynamic";
 
-const agenda = {
-  0: { local: "Lago de Olarias", cidade: "Ponta Grossa PR", horario: "Domingo \u2022 15h as 20h" },
-  1: { local: "Jardim Concei\u00e7\u00e3o", cidade: "Ponta Grossa PR", horario: "18h as 22h" },
-  2: { local: "Jardim Concei\u00e7\u00e3o", cidade: "Ponta Grossa PR", horario: "18h as 22h" },
-  3: { local: "Jardim Concei\u00e7\u00e3o", cidade: "Ponta Grossa PR", horario: "18h as 22h" },
-  4: { local: "Jardim Concei\u00e7\u00e3o", cidade: "Ponta Grossa PR", horario: "18h as 22h" },
-  5: { local: "Pra\u00e7a Santo Ant\u00f4nio", cidade: "Ponta Grossa PR", horario: "18h as 23h" },
-  6: { local: "Evento / Sob consulta", cidade: "Ponta Grossa PR", horario: "Chama no WhatsApp" }
-} as const;
-
 const marqueeItems = [
   "0% LACTOSE",
   "100% SABOR",
@@ -31,6 +21,16 @@ function normalizeWhatsApp(value: string) {
 function normalizeInstagram(value: string) {
   const handle = value.replace(/^@/, "").trim();
   return "https://www.instagram.com/sorvetesiceretro/";
+}
+
+function resolveLocationQuery(value: string) {
+  const trimmed = value.trim();
+
+  if (!trimmed || /atendimento online|sob consulta/i.test(trimmed)) {
+    return "-25.079928, -50.128051";
+  }
+
+  return trimmed;
 }
 
 function flavorEmoji(name: string) {
@@ -56,11 +56,12 @@ export default async function HomePage() {
 
   const whatsappHref = normalizeWhatsApp(site.whatsappNumber);
   const instagramHref = normalizeInstagram(site.instagramHandle);
-  const today = new Date().getDay() as keyof typeof agenda;
-  const localAtual = agenda[today];
-  const mapQuery = "-25.079928, -50.128051";
+  const mapQuery = resolveLocationQuery(site.addressLine);
+  const usingPinnedCoordinates = mapQuery === "-25.079928, -50.128051";
   const mapaSrc = `https://www.google.com/maps?q=${encodeURIComponent(mapQuery)}&output=embed`;
   const mapaHref = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(mapQuery)}`;
+  const mapDisplayTitle = usingPinnedCoordinates ? "Ponto configurado no mapa" : mapQuery;
+  const mapDisplaySubtitle = usingPinnedCoordinates ? "Localizacao fixada por coordenadas" : "Endereco configurado";
   const marqueeText = `${marqueeItems.join(" \u2726 ")} \u2726 `;
   const stylePhotos = [
     {
@@ -163,12 +164,12 @@ export default async function HomePage() {
             </a>
           </div>
         </div>
-      </section>
 
-      <section className="marquee-strip" aria-label="Qualidades da marca">
-        <div className="marquee-track">
-          <span>{marqueeText.repeat(4)}</span>
-          <span>{marqueeText.repeat(4)}</span>
+        <div className="marquee-strip hero-marquee-strip" aria-label="Qualidades da marca">
+          <div className="marquee-track">
+            <span>{marqueeText.repeat(4)}</span>
+            <span>{marqueeText.repeat(4)}</span>
+          </div>
         </div>
       </section>
 
@@ -188,11 +189,11 @@ export default async function HomePage() {
 
       <section id="locais" className="site-section site-location-section">
         <div className="site-container site-section-inner">
-          <p className="section-kicker">Rota do dia</p>
-          <h3 className="site-location-title">Onde estamos hoje {"\u{1F4CD}"}</h3>
+          <p className="section-kicker">Mapa do ponto atual</p>
+          <h3 className="site-location-title">Onde estamos {"\u{1F4CD}"}</h3>
 
           <p className="site-location-copy">
-            Confira onde encontrar o Ice Retro hoje. Cada dia pode ter um ponto diferente.
+            Confira o local configurado no mapa. Se precisar confirmar antes de sair, chama no WhatsApp.
           </p>
 
           <div className="location-card">
@@ -206,18 +207,18 @@ export default async function HomePage() {
 
             <div className="location-info">
               <span className="location-badge">Ponto atual Ice Retro</span>
-              <h4 className="location-place">{localAtual.local}</h4>
-              <p className="location-city">{localAtual.cidade}</p>
+              <h4 className="location-place">{mapDisplayTitle}</h4>
+              <p className="location-city">{mapDisplaySubtitle}</p>
 
               <div className="location-meta">
                 <div className="location-meta-card">
                   <span>Horario</span>
-                  <strong>{localAtual.horario}</strong>
+                  <strong>{site.serviceHours}</strong>
                 </div>
 
                 <div className="location-meta-card">
-                  <span>Dica</span>
-                  <strong>Chama no WhatsApp para confirmar antes de sair</strong>
+                  <span>Atendimento</span>
+                  <strong>{site.deliveryZones}</strong>
                 </div>
               </div>
 
