@@ -5,13 +5,7 @@ import { useFormStatus } from "react-dom";
 import { submitLeadAction } from "@/app/actions";
 import { initialLeadActionState } from "@/app/lead-action-state";
 
-type FlavorOption = {
-  id: string;
-  name: string;
-};
-
 type LeadFormProps = {
-  flavors: FlavorOption[];
   whatsappHref: string;
 };
 
@@ -25,7 +19,7 @@ function LeadSubmitButton() {
   );
 }
 
-export function LeadForm({ flavors, whatsappHref }: LeadFormProps) {
+export function LeadForm({ whatsappHref }: LeadFormProps) {
   const [state, formAction] = useActionState(submitLeadAction, initialLeadActionState);
   const formRef = useRef<HTMLFormElement>(null);
 
@@ -39,77 +33,73 @@ export function LeadForm({ flavors, whatsappHref }: LeadFormProps) {
     <form ref={formRef} id="pedido" action={formAction} className="lead-capture-form">
       <div className="lead-form-head">
         <p className="section-kicker">Eventos e festas</p>
-        <h4 className="lead-form-title">Pede um orcamento rapido</h4>
+        <h4 className="lead-form-title">Peça um orçamento rápido</h4>
         <p className="lead-form-copy">
-          Conta o tipo de evento, data estimada e o que voce precisa. A Ice Retro responde pelo
-          WhatsApp.
+          Conte o tipo de evento, a data estimada e o que você precisa. A Ice Retro responde
+          pelo WhatsApp.
+        </p>
+      </div>
+
+      <div className="lead-form-helper">
+        <span className="lead-form-helper-title">Sem compromisso</span>
+        <p className="lead-form-helper-copy">
+          A resposta vai pelo WhatsApp com disponibilidade, formato e quantidade ideal para o seu
+          evento.
         </p>
       </div>
 
       <div className="lead-form-grid">
-        <label className="field">
+        <label className="field lead-form-field">
           <span>Seu nome</span>
           <input name="name" placeholder="Ex.: Maria" required />
         </label>
 
-        <label className="field">
+        <label className="field lead-form-field">
           <span>WhatsApp</span>
           <input name="phone" placeholder="(42) 99999-9999" inputMode="tel" required />
         </label>
       </div>
 
-      <div className="lead-form-grid">
-        <label className="field">
-          <span>Tipo de evento</span>
-          <select name="eventType" defaultValue="" required>
-            <option value="" disabled>
-              Selecione
-            </option>
-            <option value="Aniversario">Aniversario</option>
-            <option value="Casamento">Casamento</option>
-            <option value="Evento corporativo">Evento corporativo</option>
-            <option value="Feira ou acao de marca">Feira ou acao de marca</option>
-            <option value="Festa infantil">Festa infantil</option>
-            <option value="Outro">Outro</option>
-          </select>
-        </label>
-
-        <label className="field">
-          <span>Sabor de interesse</span>
-          <select name="favoriteFlavor" defaultValue="">
-            <option value="">Sem preferencia</option>
-            {flavors.map((flavor) => (
-              <option key={flavor.id} value={flavor.name}>
-                {flavor.name}
-              </option>
-            ))}
-          </select>
-        </label>
-      </div>
+      <label className="field lead-form-field lead-form-field-wide">
+        <span>Tipo de evento</span>
+        <select name="eventType" defaultValue="" required>
+          <option value="" disabled>
+            Selecione
+          </option>
+          <option value="Aniversário">Aniversário</option>
+          <option value="Casamento">Casamento</option>
+          <option value="Evento corporativo">Evento corporativo</option>
+          <option value="Feira ou ação de marca">Feira ou ação de marca</option>
+          <option value="Festa infantil">Festa infantil</option>
+          <option value="Outro">Outro</option>
+        </select>
+      </label>
 
       <div className="lead-form-grid lead-form-grid-compact">
-        <label className="field">
+        <label className="field lead-form-field">
           <span>Data estimada</span>
           <input name="eventDate" type="date" />
         </label>
 
-        <label className="field">
+        <label className="field lead-form-field">
           <span>Convidados</span>
           <input name="guestCount" type="number" min="1" placeholder="80" />
         </label>
+      </div>
 
-        <label className="field">
+      <div className="lead-form-grid lead-form-grid-single">
+        <label className="field lead-form-field">
           <span>Cidade ou bairro</span>
           <input name="city" placeholder="Ponta Grossa" />
         </label>
       </div>
 
-      <label className="field">
-        <span>O que voce imagina para o evento?</span>
+      <label className="field lead-form-field lead-form-field-message">
+        <span>O que você imagina para o evento?</span>
         <textarea
           name="message"
           rows={5}
-          placeholder="Ex.: Quero atender 120 pessoas em um evento de empresa no sabado a tarde."
+          placeholder="Ex.: Quero atender 120 pessoas em um evento de empresa no sábado à tarde."
           required
         />
       </label>
@@ -118,7 +108,12 @@ export function LeadForm({ flavors, whatsappHref }: LeadFormProps) {
         <div className={`lead-form-feedback lead-form-feedback-${state.status}`}>
           <p>{state.message}</p>
           {state.status === "success" ? (
-            <a href={whatsappHref} target="_blank" rel="noreferrer" className="lead-form-feedback-link">
+            <a
+              href={whatsappHref}
+              target="_blank"
+              rel="noreferrer"
+              className="lead-form-feedback-link"
+            >
               Continuar no WhatsApp
             </a>
           ) : null}

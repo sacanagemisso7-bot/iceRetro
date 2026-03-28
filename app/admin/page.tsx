@@ -44,13 +44,15 @@ export default async function AdminDashboardPage() {
         <div>
           <span className="admin-chip">Ice Retro</span>
           <h1>CMS completo</h1>
-          <p>Gerencie narrativa, cardapio, prova social e oportunidades comerciais em um so lugar.</p>
+          <p>
+            Gerencie narrativa, cardápio, prova social e oportunidades comerciais em um só lugar.
+          </p>
         </div>
 
         <nav className="admin-nav">
           <Link href="/admin">Dashboard</Link>
           <Link href="/">Ver site</Link>
-          <Link href="/api/site">API publica</Link>
+          <Link href="/api/site">API pública</Link>
         </nav>
 
         <div className="admin-session">
@@ -70,10 +72,10 @@ export default async function AdminDashboardPage() {
           <section className="admin-hero-card">
             <div>
               <span className="kicker">Painel operacional</span>
-              <h2>Site, cardapio e captacao na mesma esteira.</h2>
+              <h2>Site, cardápio e captação na mesma esteira.</h2>
               <p>
-                Tudo abaixo alimenta a home da Ice Retro em tempo real e deixa a equipe livre para operar campanha,
-                delivery e eventos.
+                Tudo abaixo alimenta a home da Ice Retro em tempo real e deixa a equipe livre para
+                operar campanha, delivery e eventos.
               </p>
             </div>
             <div className="stat-grid">
@@ -99,7 +101,7 @@ export default async function AdminDashboardPage() {
           <section className="admin-card">
             <div className="admin-card-head">
               <div>
-                <span className="kicker">Conteudo base</span>
+                <span className="kicker">Conteúdo base</span>
                 <h3>Textos principais da home</h3>
               </div>
             </div>
@@ -119,17 +121,17 @@ export default async function AdminDashboardPage() {
               </div>
 
               <label className="field">
-                <span>Titulo principal</span>
+                <span>Título principal</span>
                 <input name="heroTitle" defaultValue={site.heroTitle} required />
               </label>
 
               <div className="form-grid">
                 <label className="field">
-                  <span>Subtitulo</span>
+                  <span>Subtítulo</span>
                   <textarea name="heroSubtitle" rows={3} defaultValue={site.heroSubtitle} required />
                 </label>
                 <label className="field">
-                  <span>Descricao</span>
+                  <span>Descrição</span>
                   <textarea name="heroDescription" rows={3} defaultValue={site.heroDescription} required />
                 </label>
               </div>
@@ -141,33 +143,33 @@ export default async function AdminDashboardPage() {
 
               <div className="form-grid">
                 <label className="field">
-                  <span>CTA primario</span>
+                  <span>CTA primário</span>
                   <input name="primaryCtaLabel" defaultValue={site.primaryCtaLabel} required />
                 </label>
                 <label className="field">
-                  <span>Href primario</span>
+                  <span>Href primário</span>
                   <input name="primaryCtaHref" defaultValue={site.primaryCtaHref} required />
                 </label>
               </div>
 
               <div className="form-grid">
                 <label className="field">
-                  <span>CTA secundario</span>
+                  <span>CTA secundário</span>
                   <input name="secondaryCtaLabel" defaultValue={site.secondaryCtaLabel} required />
                 </label>
                 <label className="field">
-                  <span>Href secundario</span>
+                  <span>Href secundário</span>
                   <input name="secondaryCtaHref" defaultValue={site.secondaryCtaHref} required />
                 </label>
               </div>
 
               <div className="form-grid">
                 <label className="field">
-                  <span>Titulo experiencia</span>
+                  <span>Título da experiência</span>
                   <textarea name="experienceTitle" rows={3} defaultValue={site.experienceTitle} required />
                 </label>
                 <label className="field">
-                  <span>Descricao experiencia</span>
+                  <span>Descrição da experiência</span>
                   <textarea
                     name="experienceDescription"
                     rows={3}
@@ -179,11 +181,11 @@ export default async function AdminDashboardPage() {
 
               <div className="form-grid">
                 <label className="field">
-                  <span>Titulo da historia</span>
+                  <span>Título da história</span>
                   <input name="storyTitle" defaultValue={site.storyTitle} required />
                 </label>
                 <label className="field">
-                  <span>Historia da marca</span>
+                  <span>História da marca</span>
                   <textarea name="storyBody" rows={4} defaultValue={site.storyBody} required />
                 </label>
               </div>
@@ -205,18 +207,18 @@ export default async function AdminDashboardPage() {
                   <input name="instagramHandle" defaultValue={site.instagramHandle} required />
                 </label>
                 <label className="field">
-                  <span>Endereco</span>
+                  <span>Endereço</span>
                   <input name="addressLine" defaultValue={site.addressLine} required />
                 </label>
               </div>
 
               <div className="form-grid">
                 <label className="field">
-                  <span>Horario</span>
+                  <span>Horário</span>
                   <input name="serviceHours" defaultValue={site.serviceHours} required />
                 </label>
                 <label className="field">
-                  <span>Areas atendidas</span>
+                  <span>Áreas atendidas</span>
                   <textarea name="deliveryZones" rows={3} defaultValue={site.deliveryZones} required />
                 </label>
               </div>
@@ -255,12 +257,12 @@ export default async function AdminDashboardPage() {
                     </div>
 
                     <label className="field">
-                      <span>Titulo</span>
+                      <span>Título</span>
                       <input name="title" defaultValue={item.title} required />
                     </label>
 
                     <label className="field">
-                      <span>Descricao</span>
+                      <span>Descrição</span>
                       <textarea name="description" rows={3} defaultValue={item.description} required />
                     </label>
 
@@ -313,11 +315,11 @@ export default async function AdminDashboardPage() {
                 </label>
               </div>
               <label className="field">
-                <span>Titulo</span>
+                <span>Título</span>
                 <input name="title" required />
               </label>
               <label className="field">
-                <span>Descricao</span>
+                <span>Descrição</span>
                 <textarea name="description" rows={3} required />
               </label>
               <div className="form-grid">
@@ -341,7 +343,7 @@ export default async function AdminDashboardPage() {
           <section className="admin-card">
             <div className="admin-card-head">
               <div>
-                <span className="kicker">Cardapio</span>
+                <span className="kicker">Cardápio</span>
                 <h3>Sabores, categorias e itens em destaque</h3>
               </div>
             </div>
@@ -363,13 +365,13 @@ export default async function AdminDashboardPage() {
                     </div>
 
                     <label className="field">
-                      <span>Descricao</span>
+                      <span>Descrição</span>
                       <textarea name="description" rows={3} defaultValue={item.description} required />
                     </label>
 
                     <div className="form-grid">
                       <label className="field">
-                        <span>Preco</span>
+                        <span>Preço</span>
                         <input name="price" defaultValue={item.price} required />
                       </label>
                       <label className="field">
@@ -428,12 +430,12 @@ export default async function AdminDashboardPage() {
                 </label>
               </div>
               <label className="field">
-                <span>Descricao</span>
+                <span>Descrição</span>
                 <textarea name="description" rows={3} required />
               </label>
               <div className="form-grid">
                 <label className="field">
-                  <span>Preco</span>
+                  <span>Preço</span>
                   <input name="price" placeholder="R$ 24" required />
                 </label>
                 <label className="field">
@@ -572,7 +574,6 @@ export default async function AdminDashboardPage() {
                     <p>{lead.message}</p>
 
                     <div className="lead-meta">
-                      <span>Sabor: {lead.favoriteFlavor || "Nao informado"}</span>
                       <span>Tipo: {lead.eventType || "Loja ou delivery"}</span>
                     </div>
 

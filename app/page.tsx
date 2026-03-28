@@ -39,7 +39,7 @@ function resolveLocation(value: string) {
     return {
       query: sundayLocationQuery,
       title: sundayLocationQuery,
-      subtitle: "Localizacao automatica de domingo"
+      subtitle: "Localiza\u00e7\u00e3o autom\u00e1tica de domingo"
     };
   }
 
@@ -49,14 +49,14 @@ function resolveLocation(value: string) {
     return {
       query: "-25.079928, -50.128051",
       title: "Ponto configurado no mapa",
-      subtitle: "Localizacao fixada por coordenadas"
+      subtitle: "Localiza\u00e7\u00e3o fixada por coordenadas"
     };
   }
 
   return {
     query: trimmed,
     title: trimmed,
-    subtitle: "Endereco configurado"
+    subtitle: "Endere\u00e7o configurado"
   };
 }
 
@@ -78,6 +78,20 @@ function flavorEmoji(name: string) {
   return "\u{1F366}";
 }
 
+function formatFlavorName(name: string) {
+  const normalized = name
+    .trim()
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "");
+
+  if (normalized === "limao") {
+    return "Lim\u00e3o";
+  }
+
+  return name;
+}
+
 export default async function HomePage() {
   const { site, flavors } = await getSiteSnapshot();
 
@@ -89,16 +103,16 @@ export default async function HomePage() {
   const marqueeText = `${marqueeItems.join(" \u2726 ")} \u2726 `;
   const stylePhotos = [
     {
-      src: "/brand/cone-pink-poster.svg",
+      src: "/brand/cone-pink-contrast.png",
       alt: "Casquinha rosa na bancada da Ice Retro",
       kicker: "Assinatura",
-      title: "Cor forte e presenca de marca",
+      title: "Cor forte e presen\u00e7a de marca",
       description: "O rosa da Ice Retro aparece com contraste alto e cara de campanha.",
       tone: "pink",
       featured: true
     },
     {
-      src: "/brand/cone-vanilla-poster.svg",
+      src: "/brand/cone-vanilla-soft.png",
       alt: "Casquinha clara ao entardecer na Ice Retro",
       kicker: "Textura",
       title: "Leveza no clique",
@@ -106,23 +120,23 @@ export default async function HomePage() {
       tone: "gold"
     },
     {
-      src: "/brand/cone-pink-lavender.svg",
-      alt: "Casquinha lilas em campo florido",
+      src: "/brand/cone-pink-lavender.png",
+      alt: "Casquinha lil\u00e1s em campo florido",
       kicker: "Mood",
-      title: "Retro, doce e memoravel",
+      title: "Retr\u00f4, doce e memor\u00e1vel",
       description: "Um visual divertido que combina produto, cor e atmosfera.",
       tone: "lilac"
     },
     {
-      src: "/brand/cone-pink-lavender-alt.svg",
-      alt: "Casquinha lilas em outro registro florido",
+      src: "/brand/cone-purple-flower.png",
+      alt: "Casquinha lil\u00e1s em outro registro florido",
       kicker: "Campanha",
       title: "Identidade consistente",
-      description: "A estetica continua reconhecivel mesmo mudando o enquadramento.",
+      description: "A est\u00e9tica continua reconhec\u00edvel mesmo mudando o enquadramento.",
       tone: "berry"
     },
     {
-      src: "/brand/cone-pink-park.svg",
+      src: "/brand/cone-pink-event.png",
       alt: "Casquinha rosa no parque",
       kicker: "Rua",
       title: "Marca em movimento",
@@ -130,18 +144,18 @@ export default async function HomePage() {
       tone: "mint"
     },
     {
-      src: "/brand/cone-blue-carnival.svg",
-      alt: "Casquinha azul em parque de diversoes",
+      src: "/brand/cone-blue-carnival.jpeg",
+      alt: "Casquinha azul em parque de divers\u00f5es",
       kicker: "Impacto",
-      title: "Paleta viva sem perder elegancia",
-      description: "Cores diferentes entram para ampliar o repertorio visual da marca.",
+      title: "Paleta viva sem perder eleg\u00e2ncia",
+      description: "Cores diferentes entram para ampliar o repert\u00f3rio visual da marca.",
       tone: "blue"
     }
   ];
   const eventHighlights = [
-    "Atendimento para festas, empresas e acoes especiais.",
-    "Marca forte, visual bonito e operacao pensada para foto e experiencia.",
-    "Resposta rapida para alinhar formato, quantidade e data."
+    "Atendimento para festas, empresas e a\u00e7\u00f5es especiais.",
+    "Marca forte, visual bonito e opera\u00e7\u00e3o pensada para foto e experi\u00eancia.",
+    "Resposta r\u00e1pida para alinhar formato, quantidade e data."
   ];
 
   return (
@@ -152,7 +166,7 @@ export default async function HomePage() {
             <img src="/brand/ice-retro-logo.svg" alt={site.brandName} className="site-logo-image" />
           </a>
 
-          <nav className="site-nav-links" aria-label="Navegacao principal">
+          <nav className="site-nav-links" aria-label="Navega\u00e7\u00e3o principal">
             <a href="#sabores">Sabores</a>
             <a href="#locais">Locais</a>
             <a href="#eventos">Eventos</a>
@@ -202,11 +216,15 @@ export default async function HomePage() {
           <h3 className="site-section-title">Nossos Sabores {"\u{1F366}"}</h3>
 
           <div className="flavor-grid">
-            {flavors.map((flavor) => (
-              <article key={flavor.id} className="flavor-card">
-                {`${flavor.name} ${flavorEmoji(flavor.name)}`}
-              </article>
-            ))}
+            {flavors.map((flavor) => {
+              const displayName = formatFlavorName(flavor.name);
+
+              return (
+                <article key={flavor.id} className="flavor-card">
+                  {`${displayName} ${flavorEmoji(displayName)}`}
+                </article>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -217,7 +235,8 @@ export default async function HomePage() {
           <h3 className="site-location-title">Onde estamos {"\u{1F4CD}"}</h3>
 
           <p className="site-location-copy">
-            Confira o local configurado no mapa. Se precisar confirmar antes de sair, chama no WhatsApp.
+            Confira o local configurado no mapa. Se precisar confirmar antes de sair, chama no
+            WhatsApp.
           </p>
 
           <div className="location-card">
@@ -236,7 +255,7 @@ export default async function HomePage() {
 
               <div className="location-meta">
                 <div className="location-meta-card">
-                  <span>Horario</span>
+                  <span>Hor\u00e1rio</span>
                   <strong>{site.serviceHours}</strong>
                 </div>
 
@@ -277,7 +296,7 @@ export default async function HomePage() {
 
             <div className="site-events-actions">
               <a href="#pedido" className="site-events-button">
-                Preencher formulario
+                Preencher formul\u00e1rio
               </a>
               <a
                 href={whatsappHref}
@@ -290,16 +309,13 @@ export default async function HomePage() {
             </div>
           </div>
 
-          <LeadForm
-            flavors={flavors.map((flavor) => ({ id: flavor.id, name: flavor.name }))}
-            whatsappHref={whatsappHref}
-          />
+          <LeadForm whatsappHref={whatsappHref} />
         </div>
       </section>
 
       <section id="estilo" className="site-section site-style-section">
         <div className="site-container site-section-inner">
-          <p className="section-kicker">Estetica Ice Retro</p>
+          <p className="section-kicker">Est\u00e9tica Ice Retro</p>
           <h3 className="site-section-title">{site.experienceTitle} {"\u{1F4F8}"}</h3>
           <p className="style-section-copy">{site.experienceDescription}</p>
 
@@ -330,11 +346,13 @@ export default async function HomePage() {
         </span>
         <span className="floating-whatsapp-copy">
           <strong>Chama no WhatsApp</strong>
-          <small>Pedido rapido e eventos</small>
+          <small>Pedido r\u00e1pido e eventos</small>
         </span>
       </a>
 
-      <footer className="site-footer">{"\u00A9"} 2026 Ice Retro {"\u2022"} Sem lactose, com estilo</footer>
+      <footer className="site-footer">
+        {"\u00A9"} 2026 Ice Retro {"\u2022"} Sem lactose, com estilo
+      </footer>
     </main>
   );
 }

@@ -10,7 +10,7 @@ const outfit = Outfit({
 export const metadata: Metadata = {
   title: "Ice Retro",
   description:
-    "Sorvetes artesanais e sem lactose com CMS completo para a operacao da Ice Retro."
+    "Sorvetes artesanais e sem lactose com CMS completo para a operação da Ice Retro."
 };
 
 export default function RootLayout({

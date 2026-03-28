@@ -20,9 +20,10 @@ export default async function AdminLoginPage({ searchParams }: LoginPageProps) {
     <main className="admin-login-shell">
       <div className="admin-login-card">
         <span className="admin-chip">Ice Retro CMS</span>
-        <h1>Painel de conteudo e operacao</h1>
+        <h1>Painel de conteúdo e operação</h1>
         <p>
-          Entre para editar o cardapio, destaques da home, depoimentos e acompanhar os leads enviados pelo site.
+          Entre para editar o cardápio, os destaques da home, os depoimentos e acompanhar os
+          leads enviados pelo site.
         </p>
 
         <form action={loginAction} className="admin-login-form">

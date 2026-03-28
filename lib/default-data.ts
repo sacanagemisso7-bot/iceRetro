@@ -17,7 +17,7 @@ export const siteContentSeed = {
   whatsappNumber: "5511999999999",
   instagramHandle: "@iceretro",
   addressLine: "Atendimento online e eventos sob consulta",
-  serviceHours: "Todos os dias, 12h as 22h",
+  serviceHours: "Todos os dias, das 12h às 22h.",
   deliveryZones: "Delivery local, encomendas e eventos"
 };
 
@@ -33,7 +33,7 @@ export const highlightSeeds = [
   },
   {
     kicker: "Visual",
-    title: "Rosa retro",
+    title: "Rosa retrô",
     description: "Paleta forte, contraste alto e identidade bem definida.",
     ctaLabel: "Ver estilo",
     ctaHref: "#estilo",
@@ -44,7 +44,7 @@ export const highlightSeeds = [
     kicker: "Eventos",
     title: "Marca em movimento",
     description: "Produto, bancada e marca funcionando juntos no mesmo visual.",
-    ctaLabel: "Solicitar orcamento",
+    ctaLabel: "Solicitar orçamento",
     ctaHref: "#eventos",
     tone: "purple",
     sortOrder: 3
@@ -57,7 +57,7 @@ export const flavorSeeds = [
     name: "Morango",
     description: "Fresco e adocicado na medida.",
     price: "R$ 16",
-    badge: "Classico",
+    badge: "Clássico",
     accentColor: "#ff4f8b",
     featured: true,
     intensity: 4,
@@ -76,7 +76,7 @@ export const flavorSeeds = [
   },
   {
     category: "Citricos",
-    name: "Limao",
+    name: "Limão",
     description: "Refrescante e leve.",
     price: "R$ 15",
     badge: "Fresh",
@@ -99,7 +99,7 @@ export const flavorSeeds = [
   {
     category: "Doces",
     name: "Chiclete",
-    description: "Colorido e nostagico.",
+    description: "Colorido e nostálgico.",
     price: "R$ 16",
     badge: "Fun",
     accentColor: "#ec4899",
@@ -134,7 +134,7 @@ export const flavorSeeds = [
     name: "Vinho",
     description: "Intenso e diferente.",
     price: "R$ 19",
-    badge: "Unico",
+    badge: "Único",
     accentColor: "#be185d",
     featured: false,
     intensity: 5,
@@ -143,7 +143,7 @@ export const flavorSeeds = [
   {
     category: "Herbais",
     name: "Menta",
-    description: "Gelado e aromatico.",
+    description: "Gelado e aromático.",
     price: "R$ 16",
     badge: "Cool",
     accentColor: "#22c55e",
@@ -204,7 +204,7 @@ export const testimonialSeeds = [
   {
     author: "Taina P.",
     role: "Instagram",
-    quote: "A marca chama atencao e o sorvete sustenta.",
+    quote: "A marca chama atenção e o sorvete sustenta.",
     rating: 5,
     sortOrder: 3
   }

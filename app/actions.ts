@@ -14,7 +14,6 @@ export async function submitLeadAction(
 ): Promise<LeadActionState> {
   const name = value(formData, "name");
   const phone = value(formData, "phone");
-  const favoriteFlavor = value(formData, "favoriteFlavor");
   const eventType = value(formData, "eventType");
   const eventDate = value(formData, "eventDate");
   const guestCount = value(formData, "guestCount");
@@ -40,7 +39,8 @@ export async function submitLeadAction(
   if (!hasUsableDatabase()) {
     return {
       status: "error",
-      message: "O formulario esta em modo demonstracao neste deploy. Chame no WhatsApp para continuar."
+      message:
+        "O formul\u00e1rio est\u00e1 em modo de demonstra\u00e7\u00e3o neste deploy. Chame no WhatsApp para continuar."
     };
   }
 
@@ -49,7 +49,6 @@ export async function submitLeadAction(
       data: {
         name,
         phone,
-        favoriteFlavor: favoriteFlavor || null,
         eventType: eventType || null,
         message: leadMessage
       }
@@ -59,7 +58,7 @@ export async function submitLeadAction(
 
     return {
       status: "error",
-      message: "O formulario nao conseguiu salvar no ambiente atual. Chame no WhatsApp para continuar."
+      message: "O formul\u00e1rio n\u00e3o conseguiu salvar no ambiente atual. Chame no WhatsApp para continuar."
     };
   }
 
